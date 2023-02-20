@@ -14,20 +14,39 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('expenses-type') }}" :active="request()->routeIs('expenses-type')">
-                        {{ __('Expenses') }}
+					
+			<!------  Livewire ------>
+                    <x-jet-nav-link href="{{ route('expenses-types') }}" :active="request()->routeIs('expenses-types')">
+                        {{ __('Livewire Expenses Type') }}
                     </x-jet-nav-link>
-                </div>
-				<!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('book-list') }}" :active="request()->routeIs('book-list')">
-                        {{ __('Books') }}
+					<x-jet-nav-link href="{{ route('expenses-bills') }}" :active="request()->routeIs('expenses-bills')">
+						{{ __('Livewire Expenses Bills') }}
+					</x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('business-categories') }}" :active="request()->routeIs('business-categories')">
+                        {{ __('Livewire Business Category') }}
                     </x-jet-nav-link>
-                </div>
+					
+					
+			<!------  Laravel ------>
+                    <x-jet-nav-link href="{{ route('expenses-type') }}" :active="request()->routeIs('expenses-type') || request()->routeIs('type-update')">
+                        {{ __('Expenses Type') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('expenses-bill') }}" :active="request()->routeIs('expenses-bill') || request()->routeIs('bill-update')">
+                        {{ __('Expenses Bill') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('business-category') }}" :active="request()->routeIs('business-category') || request()->routeIs('category-update')">
+                        {{ __('Business Category') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('business-subcategory') }}" :active="request()->routeIs('business-subcategory') || request()->routeIs('subcategory-update') || request()->routeIs('business-subcategory-create')">
+                        {{ __('Business Subcategory') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('product-list') }}" :active="request()->routeIs('product-list') || request()->routeIs('product-update') || request()->routeIs('business-product-create')">
+                        {{ __('Business Products') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('portfolio-dashboard') }}" :active="request()->routeIs('portfolio-dashboard')">
+                        {{ __('Portfolio') }}
+                    </x-jet-nav-link>
+				</div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -184,7 +203,6 @@
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
-
                     <x-jet-responsive-nav-link href="{{ route('logout') }}"
                                    @click.prevent="$root.submit();">
                         {{ __('Log Out') }}

@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class expensesModel extends Model
 {
     use HasFactory;
-	protected $fillable = ['code','name', 'slug','visibility', 'assigned_id', 'updated_id'];
+	
+	protected $fillable = ['code','name', 'slug','policy','visibility', 'assigned_id', 'updated_id'];
 	public function assign_user(){
 		return $this->belongsTo(User::class,'assigned_id');
 	}

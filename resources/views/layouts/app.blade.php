@@ -32,6 +32,14 @@
 
             <!-- Page Content -->
             <main>
+				@if(session('alert'))
+				<div x-data="{alertBox:true}" x-show="alertBox" x-init="setTimeout(function(){alertBox = false}, 3000)" class="fixed left-auto right-5 top-5 z-50 border border-3 bg-gray-100 text-white rounded-lg">
+					<span class="p-3 flex items-center h-10 w-full rounded bg-green-600 shadow-lg shadow-green-500/70">
+						{{session('alert.message')}}
+					</span>
+				</div>
+				@endif
+				
                 {{ $slot }}
             </main>
         </div>

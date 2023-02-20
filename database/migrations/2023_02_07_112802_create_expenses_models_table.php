@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->string('slug');
+            $table->enum('policy', ['credit', 'debit']);
             $table->string('visibility')->default(false);
             $table->foreignId('assigned_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('updated_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
