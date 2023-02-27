@@ -18,7 +18,7 @@ class BusinessProductController extends Controller
 	}
 	public function productIndex(){
 		$categories = BusinessCategory::where('visibility',1)->select('code', 'category_name')->get();
-		$subcategories = BusinessSubcategory::with('category_user:id,category_name')->where('visibility',1)->select('code', 'subcategory_name', 'category_id')->get();
+		$subcategories = BusinessSubcategory::with('category:id,category_name')->where('visibility',1)->select('code', 'subcategory_name', 'category_id')->get();
 		return view('Business.Product.create', ['categories' => $categories,'subcategories' => $subcategories]);
 	}
 	public function productCreate(Request $request){

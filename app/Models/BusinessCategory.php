@@ -16,6 +16,9 @@ class BusinessCategory extends Model
 	public function update_user(){
 		return $this->belongsTo(User::class,'updated_id');
 	}
+	public function subcategories(){
+		return $this->hasmany(BusinessSubcategory::class,'category_id');
+	}
 	public function products(){
 		return $this->hasmany(BusinessProduct::class,'category_id');
 	}

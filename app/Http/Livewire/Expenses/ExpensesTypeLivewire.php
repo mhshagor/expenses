@@ -60,7 +60,6 @@ class ExpensesTypeLivewire extends Component
 		}
 		
         $this->resetErrorBag();
-		$this->dispatchBrowserEvent('edit-data');
 		$this->targetedData = $checkData;
 		
 		$this->editName = $checkData->name;

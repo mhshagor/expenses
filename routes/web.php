@@ -1,13 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+// Expenses
 use App\Http\Controllers\Expenses\ExpensesBillController;
 use App\Http\Controllers\ExpensesController;
-use App\Http\Livewire\Expenses\ExpensesTypeLivewire;
 
+// Business
 use App\Http\Controllers\Business\BusinessCategoryController;
 use App\Http\Controllers\Business\BusinessSubcategoryController;
 use App\Http\Controllers\Business\BusinessProductController;
+
+//FrontEnd
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\ShopController;
@@ -58,6 +62,8 @@ Route::middleware([
 	
 	// Livewire business
 	Route::get('business/categories/all',App\Http\Livewire\Business\BusinessCategoryLivewire::class)->name('business-categories');
+	Route::get('business/subcategories/all',App\Http\Livewire\Business\BusinessSubcategoryLivewire::class)->name('business-subcategories');
+	Route::get('business/Products/all',App\Http\Livewire\Business\BusinessProductsLivewire::class)->name('business-products');
 
 
 

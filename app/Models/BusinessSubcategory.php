@@ -10,7 +10,7 @@ class BusinessSubcategory extends Model
     use HasFactory;
 	
 	protected $guarded =[];
-	public function category_user(){
+	public function category(){
 		return $this->belongsTo(BusinessCategory::class,'category_id');
 	}
 	public function assign_user(){

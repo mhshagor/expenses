@@ -25,10 +25,16 @@
                     <x-jet-nav-link href="{{ route('business-categories') }}" :active="request()->routeIs('business-categories')">
                         {{ __('Livewire Business Category') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('business-subcategories') }}" :active="request()->routeIs('business-subcategories')">
+                        {{ __('Livewire Business Subcategory') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('business-products') }}" :active="request()->routeIs('business-products')">
+                        {{ __('Livewire Business products') }}
+                    </x-jet-nav-link>
 					
 					
 			<!------  Laravel ------>
-                    <x-jet-nav-link href="{{ route('expenses-type') }}" :active="request()->routeIs('expenses-type') || request()->routeIs('type-update')">
+			{{-- <x-jet-nav-link href="{{ route('expenses-type') }}" :active="request()->routeIs('expenses-type') || request()->routeIs('type-update')">
                         {{ __('Expenses Type') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('expenses-bill') }}" :active="request()->routeIs('expenses-bill') || request()->routeIs('bill-update')">
@@ -46,6 +52,7 @@
                     <x-jet-nav-link href="{{ route('portfolio-dashboard') }}" :active="request()->routeIs('portfolio-dashboard')">
                         {{ __('Portfolio') }}
                     </x-jet-nav-link>
+			--}}
 				</div>
             </div>
 

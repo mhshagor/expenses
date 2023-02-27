@@ -18,7 +18,7 @@
 								<select name="category" class="w-full py-1 rounded">
 									<option>Select Category</option>
 									@foreach($categories as $category)
-									<option value="{{$category->code}}" @selected(old('category')== $category->code || $data->category_user->code == $category->code)>{{$category->category_name}}</option>
+									<option value="{{$category->code}}" @selected(old('category')== $category->code || $data->category->code == $category->code)>{{$category->category_name}}</option>
 									@endforeach
 								</select>
 								@error('category')
@@ -31,7 +31,7 @@
 								<select name="subcategory" class="w-full py-1 rounded">
 									<option>Select Subcategory</option>
 									@foreach($subcategories as $subcategory)
-									<option value="{{$subcategory->code}}"  @selected(old('category')== $category->code || $data->subcategory_user->code == $subcategory->code)>{{$subcategory->subcategory_name}}</option>
+									<option value="{{$subcategory->code}}"  @selected(old('category')== $category->code || $data->subcategory->code == $subcategory->code)>{{$subcategory->subcategory_name}}</option>
 									@endforeach
 								</select>
 								@error('subcategory')

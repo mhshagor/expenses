@@ -1,10 +1,13 @@
 <div>
+
+	@include('livewire.component.loading')
 	<div class="p-1">
 		<div class="mx-5 border shadow-lg shadow-stone-400 rounded bg-white p-1 my-10">
 			<div class="bg-stone-50 rounded">
 				<section class="bg-stone-200 py-12 rounded">
 					<div class="w-11 h-11 ml-auto border bg-stone-50 p-0.5 shadow-lg shadow-stone-400 rounded mr-14 mb-2">
-						<x-button wire:click="dataAddModal" class=" h-10 w-10 justify-center bg-sky-500 hover:bg-sky-600 text-sm text-white w-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<x-button wire:click="dataAddModal" class=" h-10 w-10 justify-center bg-sky-500 hover:bg-sky-600 text-sm text-white w-auto">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 							  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg>
 						</x-button>
@@ -28,7 +31,7 @@
 									</tr>
 								</thead>
 								<tbody class="bg-gray-200 border-b border-gray-400">
-									@forelse($expensesBills as $bill)
+									@forelse($expensesBills as $data)
 									<tr class="bg-blue-100 border-b hover:bg-gray-50 text-center">
 										<td class="w-4 px-6 py-1.5">
 											<div class="flex items-center">
@@ -37,26 +40,26 @@
 											</div>
 										</td>
 										<th scope="row" class="px-6 py-1.5 font-medium whitespace-nowrap">{{$loop->iteration}}</th>
-										<td class="px-6 py-1.5">{{$bill->expenses_type->name}}</td>
-										<td class="px-6 py-1.5">{{$bill->expenses_type->policy}}</td>
-										<td class="px-6 py-1.5">{{ucwords($bill->purpose)}}</td>
-										<td class="px-6 py-1.5">{{$bill->amount}}</td>
-										<td class="px-6 py-1.5">{{$bill->details}}</td>
+										<td class="px-6 py-1.5">{{$data->expenses_type->name}}</td>
+										<td class="px-6 py-1.5">{{$data->expenses_type->policy}}</td>
+										<td class="px-6 py-1.5">{{ucwords($data->purpose)}}</td>
+										<td class="px-6 py-1.5">{{$data->amount}}</td>
+										<td class="px-6 py-1.5">{{$data->details}}</td>
 										<td class="px-6 py-1.5">
-											<img class="h-10 w-16" src="{{env('APP_URL').'/'.(($bill->boucher_image) ?? 'public/images/demo-image.bmp')}}">
+											<img class="h-10 w-16" src="{{env('APP_URL').'/'.(($data->boucher_image) ?? 'public/images/demo-image.bmp')}}">
 										</td>
-										<td class="px-6 py-1.5">{{$bill->billing_date}}</td>
-										<td class="px-6 py-1.5">{{$bill->assign_user->name}} {{$bill->update_user? ' | ' .$bill->update_user->name : ''}}</td>
+										<td class="px-6 py-1.5">{{$data->billing_date}}</td>
+										<td class="px-6 py-1.5">{{$data->assign_user->name}} {{$data->update_user? ' | ' .$data->update_user->name : ''}}</td>
 											
 										<td class="px-6 py-1.5">
 											<div class="flex items-center justify-center gap-1">
-												<x-button wire:click="dataEditModal('{{$bill->code}}')" class="justify-center bg-yellow-500 hover:shadow-yellow-500/70 text-white hover:shadow-lg duration-500 h-7 w-6">
+												<x-button wire:click="dataEditModal('{{$data->code}}')" class="justify-center bg-yellow-500 hover:shadow-yellow-500/70 text-white hover:shadow-lg duration-500 h-7 w-6">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
 														<path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
 													</svg>
 												</x-button>
 												<!-- Delete -->
-												<x-button wire:click="dataDelete('{{$bill->code}}')" class="justify-center bg-rose-500 hover:shadow-rose-500/70 text-white hover:shadow-lg duration-500 h-7 w-6">
+												<x-button wire:click="dataDelete('{{$data->code}}')" class="justify-center bg-rose-500 hover:shadow-rose-500/70 text-white hover:shadow-lg duration-500 h-7 w-6">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
 														<path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
 													</svg>
@@ -70,12 +73,10 @@
 									</td>
 									@endforelse
 								</tbody>
-								
 							</table>
 						</div>
 					</div>
 				</section>
-				
 			</div>	
 		</div>	
 	</div>
@@ -85,15 +86,14 @@
 		<x-slot name="title">
 			Add Bill
 		</x-slot>
-
 		<x-slot name="content">
 			<div class="mt-4">
 				<div>
 					<p class="font-semibold text-md">Select Type</p>
 					<select wire:model="addType" class="w-full py-1 rounded">
 						<option>Select Type</option>
-						@foreach($expensesTypes as $type)
-						<option value="{{$type->code}}">{{$type->name.' [ '.$type->policy.' ] '}}</option>
+						@foreach($expensesTypes as $data)
+						<option value="{{$data->code}}">{{$data->name.' [ '.$data->policy.' ] '}}</option>
 						@endforeach
 					</select>
 					@error('addType')
@@ -128,16 +128,18 @@
 					@enderror
 				</div>
 				<!-- Image -->
-				<div class="relative space-y-2">
-					<label for="addBoucherImage" class="block font-semibold text-md">Image</label>
-					<input id="addBoucherImage" type="file" wire:model="addBoucherImage" class="w-full text-blue-500 bg-white border border-gray-500 flex items-center py-2 pl-2 rounded" placeholder="Billing Image">
+				
+				<div class="">
+					<p class="block font-semibold text-md mb-2">Image :</p>
+					<label class="flex items-center bg-white text-blue-500 border border-gray-500 pr-1">
+						<input type="file" wire:model="addBoucherImage" class="px-3 py-2 w-full">
+						@if ($addBoucherImage)
+							<img class="h-8 w-12" src="{{ $addBoucherImage->temporaryUrl() }}">
+						@endif
+					</label>
 					@error('addBoucherImage')
-						<p class="text-xs font-semibold text-rose-600 absolute inset-0 top-auto -bottom-3.5 mr-1 ">{{$message}}</p>
+						<p class="text-sm text-rose-500">{{$message}}</p>
 					@enderror
-					 @if ($addBoucherImage)
-					Photo Preview:
-						<img src="{{ $addBoucherImage->temporaryUrl() }}">
-					@endif
 				</div>
 				 <!-- billing date -->
 				<div class="relative space-y-2">
@@ -149,7 +151,6 @@
 				</div>
 			</div>
 		</x-slot>
-
 		<x-slot name="footer">
 			<x-jet-secondary-button wire:click="$toggle('dataAddModalOpen')" wire:loading.attr="disabled">
 				{{ __('Cancel') }}
@@ -174,8 +175,8 @@
 					<p class="font-semibold text-md">Select Type</p>
 					<select wire:model="editType" class="w-full py-1 rounded">
 						<option>Select Type</option>
-						@foreach($expensesTypes as $type)
-						<option value="{{$type->code}}">{{$type->name.' [ '.$type->policy.' ] '}}</option>
+						@foreach($expensesTypes as $data)
+						<option value="{{$data->code}}">{{$data->name.' [ '.$data->policy.' ] '}}</option>
 						@endforeach
 					</select>
 					@error('editType')
@@ -210,16 +211,17 @@
 					@enderror
 				</div>
 				<!-- Image -->
-				<div class="relative space-y-2">
-					<label for="editBoucherImage" class="block font-semibold text-md">Image</label>
-					<input id="editBoucherImage" type="file" wire:model="editBoucherImage" class="w-full text-blue-500 bg-white border border-gray-500 flex items-center py-2 pl-2 rounded" placeholder="Billing Image">
+				<div class="">
+					<p class="block font-semibold text-md mb-2">Image :</p>
+					<label class="flex items-center bg-white text-blue-500 border border-gray-500 pr-1">
+						<input type="file" wire:model="editBoucherImage" class="px-3 py-2 w-full">
+						@if ($editBoucherImage)
+							<img class="h-8 w-12" src="{{ $editBoucherImage->temporaryUrl() }}">
+						@endif
+					</label>
 					@error('editBoucherImage')
-						<p class="text-xs font-semibold text-rose-600 absolute inset-0 top-auto -bottom-3.5 mr-1 ">{{$message}}</p>
+						<p class="text-sm text-rose-500">{{$message}}</p>
 					@enderror
-					 @if ($editBoucherImage)
-					Photo Preview:
-						<img src="{{ $editBoucherImage->temporaryUrl() }}">
-					@endif
 				</div>
 				 <!-- billing date -->
 				<div class="relative space-y-2">

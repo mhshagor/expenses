@@ -31,7 +31,7 @@
 								<select name="subcategory" class="w-full py-1 rounded">
 									<option>Select Subcategory</option>
 									@foreach($subcategories as $subcategory)
-									<option value="{{$subcategory->code}}">{{$subcategory->subcategory_name}} [{{$subcategory->category_user->category_name}}]</option>
+									<option value="{{$subcategory->code}}">{{$subcategory->subcategory_name}} [{{$subcategory->category->category_name}}]</option>
 									@endforeach
 								</select>
 								@error('subcategory')

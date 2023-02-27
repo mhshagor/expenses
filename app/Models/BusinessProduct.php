@@ -10,10 +10,10 @@ class BusinessProduct extends Model
     use HasFactory;
 	
 	protected $guarded =[];
-	public function category_user(){
+	public function category(){
 		return $this->belongsTo(BusinessCategory::class,'category_id');
 	}
-	public function subcategory_user(){
+	public function subcategory(){
 		return $this->belongsTo(BusinessSubcategory::class,'subcategory_id');
 	}
 	public function assign_user(){

@@ -1,5 +1,5 @@
 <div>
-	
+
 	@include('livewire.component.loading')
 	
 	@if(session('alert'))
@@ -10,50 +10,30 @@
 	</div>
 	@endif	
 
-	<!-- Form -->
-	<section class="mx-auto w-5/6  py-12">
-		<form method="post" wire:submit.prevent="dataCreate" class="w-96 mx-auto space-y-3 p-10 border border-4 shadow-lg shadow-stone-500 border-stone-50" enctype="multipart/form-data">
-			<div>
-				<label for="addName" class="block font-semibold text-md mb-2">Category Name:</label>
-				<input type="text" wire:model="addName" class="w-full" placeholder="Type Category Name">
-				@error('addName')
-					<p class="text-sm text-red-600">{{$message}}</p>
-				@enderror
-			</div>
-			<div class="">
-				<p class="block font-semibold text-md mb-2">Image :</p>
-				<label class="flex items-center bg-white text-blue-500 border border-gray-500 pr-1">
-					<input type="file" wire:model="addImage" class="px-3 py-2 w-full">
-					@if ($addImage)
-						<img class="h-8 w-12" src="{{ $addImage->temporaryUrl() }}">
-					@endif
-				</label>
-				@error('addImage')
-					<p class="text-sm text-rose-500">{{$message}}</p>
-				@enderror
-			</div>
-			<button type="submit" class="border border-4 border-stone-50 w-full bg-sky-500 px-3 py-px shadow-lg hover:shadow-stone-500/70 text-white duration-500">Save
-			</button>
-		</form>
-	</section>
-	<!-- Table -->
-	<section>
-		<div class="mx-auto w-5/6 border border-4 border-stone-50 shadow-lg shadow-stone-500 relative overflow-x-auto shadow-md sm:rounded-lg overflow-hidden">
+    <!-- Table -->
+	<section class="mx-5 border shadow-lg shadow-stone-400 rounded bg-white p-1 my-10 py-10 bg-stone-200 border border-4 rounded border-stone-50">
+		<div class="w-11 h-11 ml-auto border bg-stone-50 p-0.5 shadow-lg shadow-stone-400 rounded mr-14 mb-2">
+			<x-button wire:click="dataAddModal" class=" h-10 w-10 justify-center bg-sky-500 hover:bg-sky-600 text-sm text-white w-auto">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+				  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+			</x-button>
+		</div>
+		<div class="mx-auto w-11/12 border border-4 border-stone-50 shadow-lg shadow-stone-500 relative overflow-x-auto shadow-md sm:rounded-lg overflow-hidden">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
 				<!-- T Head -->
 				<thead class="text-xs text-gray-700 uppercase bg-stone-400/50 text-center">
 					<tr>
 						<th scope="col" class="px-6 py-3"></th>
 						<th scope="col" class="px-6 py-3">SL</th>
-						<th scope="col" class="px-6 py-3">Category Name</th>
-						<th scope="col" class="px-6 py-3">Category Image</th>
+						<th scope="col" class="px-6 py-3">Subcategory Name</th>
+						<th scope="col" class="px-6 py-3">Subcategory Image</th>
 						<th scope="col" class="px-6 py-3">ASSIGN USER</th>
 						<th scope="col" class="px-6 py-3">ACTION</th>
 					</tr>
 				</thead>
-				<!-- T Body -->
 				<tbody class="bg-gray-200 border-b border-gray-400">
-					@foreach($businessCategory as $data)
+					@foreach($businessSubcategory as $data)
 					<tr class="bg-blue-100 border-b hover:bg-gray-50 text-center text-black {{$data->visibility != 1 ? 'opacity-25 hover:opacity-75' : ''}}">
 						<td class="w-4 px-6 py-1.5">
 							<div class="flex items-center">
@@ -62,12 +42,11 @@
 							</div>
 						</td>
 						<td scope="row" class="px-6 py-1.5 font-medium whitespace-nowrap">{{$loop->iteration}}</td>
-						<td class="px-6 py-1.5">{{$data->category_name}}</td>
+						<td class="px-6 py-1.5">{{$data->subcategory_name}}</td>
 						<td class="px-6 py-1.5">
-							<img class="w-16 mx-auto h-9 border-4" src="{{env('APP_URL').'/'.(($data->category_image) ?? 'public/images/demo-image.bmp')}}">
+							<img class="w-16 mx-auto h-9 border-4" src="{{env('APP_URL').'/'.(($data->subcategory_image) ?? 'public/images/demo-image.bmp')}}">
 						</td>
-						<td class="px-6 py-1.5">{{$data->assign_user->name}} {{$data->update_user? ' | ' .$data->update_user->name : ''}}</td>
-						
+						<td class="px-6 py-1.5">{{$data->assign_user->name}} {{$data->update_user ? ' | ' .$data->update_user->name : ''}}</td>
 						<!-- Button -->
 						<td class="px-6 py-1.5">
 							<div class="flex items-center justify-center gap-1">
@@ -104,29 +83,99 @@
 			</table>
 		</div>
 	</section>
+	<!-- Add Modal -->
+	<x-jet-dialog-modal wire:model="dataAddModalOpen">
+		<x-slot name="title">
+			Add 
+		</x-slot>
+
+		<x-slot name="content">
+			<!-- Data Add modal -->
+			<div class="mt-4">
+				<div>
+					<p class="font-semibold text-md">Select Type</p>
+					<select wire:model="addCategory" class="w-full py-1 rounded">
+						<option value="">Select Type</option>
+						@foreach($categories as $category)
+						<option value="{{$category->code}}" {{old('addCategory') ? 'selected' : ''}}>{{$category->category_name}}</option>
+						@endforeach
+					</select>
+					@error('category')
+					<p class="text-xs font-semibold text-rose-600 mr-1 ">{{$message}}</p>
+					@enderror
+				</div>
+				<!-- subcategory_name -->
+				<div class="relative">
+					<label for="addName" class="block font-semibold text-md">Name</label>
+					<input id="addName" type="text" wire:model="addName" class="w-full py-1 rounded" value="{{old('addName')}}" placeholder="Subcategory Name">
+					@error('addName')
+					<p class="text-xs font-semibold text-rose-600 absolute inset-0 top-auto -bottom-3.5 mr-1 ">{{$message}}</p>
+					@enderror
+				</div>
+				<!-- Image -->
+				<div class="">
+					<p class="block font-semibold text-md mb-2">Image :</p>
+					<label class="flex items-center bg-white text-blue-500 border border-gray-500 pr-1">
+						<input type="file" wire:model="addImage" class="px-3 py-2 w-full">
+						@if ($addImage)
+							<img class="h-8 w-12" src="{{ $addImage->temporaryUrl() }}">
+						@endif
+					</label>
+					@error('addImage')
+						<p class="text-sm text-rose-500">{{$message}}</p>
+					@enderror
+				</div>
+			</div>
+		
+		</x-slot>
+
+		<x-slot name="footer">
+			<x-jet-secondary-button wire:click="$toggle('dataAddModalOpen')">
+				{{ __('Cancel') }}
+			</x-jet-secondary-button>
+
+			<x-jet-danger-button class="ml-3" wire:click="dataCreate">
+				{{ __('Save') }}
+			</x-jet-danger-button>
+		</x-slot>
+	</x-jet-dialog-modal>
 	
 	<!-- Edit Modal -->
 	<x-jet-dialog-modal wire:model="dataEditModalOpen">
 		<x-slot name="title">
-			Edit <span class="text-yellow-400">{{$targetedData->category_name ?? ''}}</span>
+			Edit  <span class="text-yellow-400">{{$targetedData->subcategory_name ?? ''}}</span>
 		</x-slot>
 
 		<x-slot name="content">
 			<!-- Data edit modal -->
 			<div class="mt-4">
 				<div>
-					<label for="editName" class="block font-semibold text-md mb-2">Category Name:</label>
-					<input type="text" wire:model="editName" class="w-full" placeholder="Type Category Name">
-					@error('editName')
-						<p class="text-sm text-red-600">{{$message}}</p>
+					<p class="font-semibold text-md">Select Type</p>
+					<select wire:model="editCategory" class="w-full py-1 rounded">
+						<option value="">Select Type</option>
+						@foreach($categories as $category)
+						<option value="{{$category->code}}" {{old('addCategory') ? 'selected' : ''}}>{{$category->category_name}}</option>
+						@endforeach
+					</select>
+					@error('category')
+					<p class="text-xs font-semibold text-rose-600 mr-1 ">{{$message}}</p>
 					@enderror
 				</div>
+				<!-- subcategory_name -->
+				<div class="relative">
+					<label for="editName" class="block font-semibold text-md">Name</label>
+					<input id="editName" type="text" wire:model="editName" class="w-full py-1 rounded" placeholder="Subcategory Name">
+					@error('editName')
+					<p class="text-xs font-semibold text-rose-600 absolute inset-0 top-auto -bottom-3.5 mr-1 ">{{$message}}</p>
+					@enderror
+				</div>
+				<!-- Image -->
 				<div class="">
 					<p class="block font-semibold text-md mb-2">Image :</p>
 					<label class="flex items-center bg-white text-blue-500 border border-gray-500 pr-1">
 						<input type="file" wire:model="editImage" class="px-3 py-2 w-full">
 						@if ($editImage)
-							<img class="h-8 w-12" src="{{$editImage->temporaryUrl() }}">
+							<img class="h-8 w-12" src="{{ $editImage->temporaryUrl() }}">
 						@endif
 					</label>
 					@error('editImage')
@@ -134,6 +183,7 @@
 					@enderror
 				</div>
 			</div>
+		
 		</x-slot>
 
 		<x-slot name="footer">
@@ -142,10 +192,9 @@
 			</x-jet-secondary-button>
 
 			<x-jet-danger-button class="ml-3" wire:click="dataEdit" wire:loading.attr="disabled">
-				{{ __('Save') }}
+				{{ __('Update') }}
 			</x-jet-danger-button>
 		</x-slot>
 	</x-jet-dialog-modal>
 	
-
 </div>

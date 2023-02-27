@@ -1,5 +1,5 @@
 <x-app-layout>
-  <!-- Table -->
+	<!-- Table -->
 	<section>
 		<div class="w-32 ml-auto border bg-stone-50 p-0.5 shadow-lg shadow-stone-400 rounded mr-14 my-2">
 			<x-button :href="route('business-subcategory-create')" class=" h-8 w-full justify-center bg-sky-500 hover:bg-sky-600 text-sm text-white w-auto">Add Subcategory</x-button>
